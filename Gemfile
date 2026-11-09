@@ -6,4 +6,4 @@ gemspec
 
 gem "minitest", "6.0.6"
 gem "rake", "13.4.2"
-gem "rubocop", "1.92.1", require: false
+gem "rubocop", "1.92.2", require: false
