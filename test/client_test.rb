@@ -56,7 +56,8 @@ class ClientTest < Minitest::Test
 
     assert_equal "application/json", headers.fetch("accept")
     assert_equal "application/json", headers.fetch("content-type")
-    assert_match(%r{\Awebsitescreenshotworld-ruby/0\.1\.0 \(ruby \d+\.\d+\.\d+\)\z}, headers.fetch("user-agent"))
+    version = Regexp.escape(WebsiteScreenshotWorld::VERSION)
+    assert_match(%r{\Awebsitescreenshotworld-ruby/#{version} \(ruby \d+\.\d+\.\d+\)\z}, headers.fetch("user-agent"))
     assert_match(/\A\h{8}-\h{4}-4\h{3}-[89ab]\h{3}-\h{12}\z/, headers.fetch("idempotency-key"))
   end
 

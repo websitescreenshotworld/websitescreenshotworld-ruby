@@ -4,9 +4,18 @@ All notable changes to this gem are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the gem follows
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.1.2 - 2026-11-13
+
+The first version on RubyGems. The library is the same as 0.1.0; 0.1.0 and 0.1.1 were tagged but never published.
+
+### Fixed
+
+- A test compared the User-Agent with a hard-coded 0.1.0, so the 0.1.1 release stopped at the test step. It now
+  reads the version from `WebsiteScreenshotWorld::VERSION`.
+
 ## 0.1.1 - 2026-11-13
 
-The first version on RubyGems. The code is the same as 0.1.0, which was tagged but never published.
+Tagged but not published (see 0.1.2).
 
 ### Fixed
 
