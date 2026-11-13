@@ -2,5 +2,5 @@
 
 module WebsiteScreenshotWorld
   # The library's version, sent in the User-Agent header.
-  VERSION = "0.1.0"
+  VERSION = "0.1.1"
 end

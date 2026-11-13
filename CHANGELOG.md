@@ -4,6 +4,15 @@ All notable changes to this gem are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the gem follows
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.1.1 - 2026-11-13
+
+The first version on RubyGems. The code is the same as 0.1.0, which was tagged but never published.
+
+### Fixed
+
+- Publishing: the release job builds and pushes the gem itself instead of running `rake release`, which tried to
+  create and push a `ruby-v` tag left over from the old multi-library repository.
+
 ## 0.1.0 - 2026-11-09
 
 The first release.
