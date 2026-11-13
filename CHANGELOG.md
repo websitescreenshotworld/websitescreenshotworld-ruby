@@ -4,9 +4,18 @@ All notable changes to this gem are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the gem follows
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.1.3 - 2026-11-13
+
+The first version on RubyGems. The library is the same as 0.1.0; 0.1.0 to 0.1.2 were tagged but never published.
+
+### Fixed
+
+- Publishing: the release job names the owning RubyGems.org account when it exchanges its OIDC token, which
+  RubyGems.org requires before a trusted publisher may create a new gem.
+
 ## 0.1.2 - 2026-11-13
 
-The first version on RubyGems. The library is the same as 0.1.0; 0.1.0 and 0.1.1 were tagged but never published.
+Tagged but not published (see 0.1.3).
 
 ### Fixed
 

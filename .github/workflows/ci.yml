@@ -54,8 +54,26 @@ jobs:
         run: |
           version=$(ruby -Ilib -r websitescreenshotworld/version -e 'print WebsiteScreenshotWorld::VERSION')
           test "${GITHUB_REF_NAME#v}" = "$version"
-      # Trusted publishing: exchanges the workflow's OIDC token for a short-lived RubyGems API key.
-      - uses: rubygems/configure-rubygems-credentials@dc5a8d8553e6ee01fc26761a49e99e733d17954a # v2.1.0
+      # Trusted publishing: exchange the workflow's OIDC token for a RubyGems API key that lasts 15 minutes.
+      # Done by hand because rubygems/configure-rubygems-credentials (v2.1.0) cannot pass `owner`, and RubyGems.org
+      # only lets a pending trusted publisher create a new gem when the exchange names the account that will own it
+      # (its ID is on that account's Pending Trusted Publishers page). Once the gem exists the owner is not needed,
+      # but sending it does no harm. RUBYGEMS_OWNER_ID is a repository variable, not a secret: the ID is public.
+      - name: Get a RubyGems API key (trusted publishing)
+        env:
+          RUBYGEMS_OWNER_ID: ${{ vars.RUBYGEMS_OWNER_ID }}
+        run: |
+          set -euo pipefail
+          jwt=$(curl -sSf -H "Authorization: bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" \
+            "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=rubygems.org" | jq -r .value)
+          echo "::add-mask::${jwt}"
+          body=$(jq -n --arg jwt "$jwt" --arg owner "${RUBYGEMS_OWNER_ID:-}" \
+            '{jwt: $jwt} + (if $owner == "" then {} else {owner: $owner} end)')
+          key=$(curl -sS --fail-with-body -X POST -H "Content-Type: application/json" -H "Accept: application/json" \
+            --data "$body" https://rubygems.org/api/v1/oidc/trusted_publisher/exchange_token | jq -r .rubygems_api_key)
+          test -n "$key" && test "$key" != "null"
+          echo "::add-mask::${key}"
+          echo "GEM_HOST_API_KEY=${key}" >> "$GITHUB_ENV"
       # Build and push directly. `rake release` (what rubygems/release-gem runs) also creates and pushes a git tag,
       # which a tag-triggered run with a read-only token cannot do - and the tag already exists.
       - name: Build the gem
