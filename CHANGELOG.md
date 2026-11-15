@@ -4,6 +4,17 @@ All notable changes to this gem are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the gem follows
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.2.0 - 2026-11-15
+
+Follows the API spec at Instant Snap API 1.3.0.
+
+### Added
+
+- `Capture#url`: the page the capture was asked for, on every capture and on Instant Snap webhook events, as
+  Auto Schedule events already had it.
+- The error codes of the webhook endpoints API: `webhook_endpoint_not_found` raises `NotFoundError` and
+  `webhook_endpoint_limit_reached` raises `PlanLimitError`.
+
 ## 0.1.3 - 2026-11-13
 
 The first version on RubyGems. The library is the same as 0.1.0; 0.1.0 to 0.1.2 were tagged but never published.

@@ -50,6 +50,9 @@ module WebsiteScreenshotWorld
   #
   # @!attribute [r] id
   #   @return [String]
+  # @!attribute [r] url
+  #   @return [String] the page the capture was asked for; +final_url+ says where the browser ended up
+  #     (sent from API 1.3.0; empty only from an older server)
   # @!attribute [r] status
   #   @return [String] one of {CaptureStatus}; an async capture is +queued+, then +running+, then
   #     +succeeded+ or +failed+, and its file fields are nil until it has finished
@@ -93,7 +96,7 @@ module WebsiteScreenshotWorld
   # @!attribute [r] spec_version
   #   @return [String] the default set the capture was taken under
   Capture = Data.define(
-    :id, :status, :response_type, :media_category, :format, :content_type, :size_bytes, :width, :height,
+    :id, :url, :status, :response_type, :media_category, :format, :content_type, :size_bytes, :width, :height,
     :duration_ms, :page_http_status, :captured_at, :final_url, :media_sha256, :download_url, :expires_at,
     :page_source, :s3_delivery, :callback_url, :error_code, :spec_version
   ) do
@@ -114,6 +117,7 @@ module WebsiteScreenshotWorld
       Model.build(
         self, hash,
         idempotent_replayed: idempotent_replayed,
+        url: hash["url"] || "",
         captured_at: Model.time(hash["captured_at"]),
         expires_at: Model.time(hash["expires_at"]),
         page_source: hash["page_source"]&.then { PageSource.from_api(_1) },

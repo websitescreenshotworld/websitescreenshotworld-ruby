@@ -11,8 +11,10 @@ module WebsiteScreenshotWorld
         validation_failed s3_destination_invalid web_page_id_invalid idempotency_key_reused
         sitemap_schedule_not_triggerable
       ],
-      PlanLimitError => %w[quota_exhausted feature_not_available no_trigger_allowance forbidden],
-      NotFoundError => %w[capture_not_found web_page_not_found not_found],
+      PlanLimitError => %w[
+        quota_exhausted feature_not_available no_trigger_allowance forbidden webhook_endpoint_limit_reached
+      ],
+      NotFoundError => %w[capture_not_found web_page_not_found not_found webhook_endpoint_not_found],
       RateLimitError => %w[rate_limited queue_full],
       CaptureError => %w[capture_failed capture_timeout payload_too_large capture_expired],
       ServiceError => %w[capture_busy service_unavailable internal_error request_cancelled idempotency_key_in_use]
