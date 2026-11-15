@@ -170,6 +170,14 @@ Files are kept for 24 hours (`capture.expires_at`). The API key is not sent to t
 needed), and `client.instant_snap.catalog` lists the accepted `emulated_device` and `proxy: { country: }`
 values.
 
+`client.instant_snap.account` answers whose key the client holds, without the key itself and without spending
+a capture (`client.auto_schedule.account` does the same for the Auto Schedule key):
+
+```ruby
+account = client.instant_snap.account
+puts "#{account.email} (#{account.key_name}, #{account.key_prefix})"
+```
+
 Every result is an immutable `Data` object. Dates are `Time` objects in UTC, and `raw` holds the JSON
 object as the API sent it, including fields added after this version of the gem.
 

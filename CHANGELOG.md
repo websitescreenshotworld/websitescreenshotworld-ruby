@@ -4,6 +4,16 @@ All notable changes to this gem are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the gem follows
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.3.0 - 2026-11-15
+
+Follows the API spec at Instant Snap API 1.4.0 and Auto Schedule API 1.3.0.
+
+### Added
+
+- `instant_snap.account` and `auto_schedule.account`: whose key it is, as an `Account` with the key's name and
+  prefix, its product and the email of the member who created it. It never includes the key and costs no
+  capture, so it is also a cheap way to check a key works.
+
 ## 0.2.0 - 2026-11-15
 
 Follows the API spec at Instant Snap API 1.3.0.

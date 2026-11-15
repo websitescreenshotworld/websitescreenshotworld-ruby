@@ -33,6 +33,8 @@ class ConformanceTest < Minitest::Test
     %w[instant_snap get] => ->(client, call, _) { client.instant_snap.get(call.fetch("id")) },
     %w[instant_snap defaults] => ->(client, _, _) { client.instant_snap.defaults },
     %w[instant_snap catalog] => ->(client, _, _) { client.instant_snap.catalog },
+    %w[instant_snap account] => ->(client, _, _) { client.instant_snap.account },
+    %w[auto_schedule account] => ->(client, _, _) { client.auto_schedule.account },
     %w[auto_schedule trigger_now] => lambda do |client, call, _|
       client.auto_schedule.trigger_now(call.fetch("web_page_id"))
     end

@@ -225,6 +225,12 @@ module WebsiteScreenshotWorld
       Catalog.from_api(hash)
     end
 
+    # Whose key this is: its name and prefix, its product and the member who created it. Costs no capture,
+    # so it is also a cheap way to check a key works.
+    #
+    # @return [Account]
+    def account = Account.from_api(request_json(:get, "/instant-snap/v1/account").first)
+
     private
 
     def post_capture(response_type, url, options, idempotency_key, timeout, async: false)

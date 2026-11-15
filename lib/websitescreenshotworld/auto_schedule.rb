@@ -18,5 +18,11 @@ module WebsiteScreenshotWorld
       hash, = request_json(:post, "/auto-schedule/v1/web-pages/#{path_segment(web_page_id)}/trigger-now")
       TriggerResult.from_api(hash)
     end
+
+    # Whose key this is: its name and prefix, its product and the member who created it. Costs no capture,
+    # so it is also a cheap way to check a key works.
+    #
+    # @return [Account]
+    def account = Account.from_api(request_json(:get, "/auto-schedule/v1/account").first)
   end
 end
