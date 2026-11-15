@@ -248,6 +248,30 @@ client.instant_snap.capture(url: "https://example.com", timeout: 60)
 Redirects are never followed, so the API key is never sent to another host. Neither the API nor a download link
 redirects, so a `3xx` answer is raised as an error.
 
+## Render links
+
+A render link is a signed URL that is itself a screenshot, for an `<img>` tag, an email or a social preview.
+`RenderLink.build` makes one locally - nothing is sent and no client is needed - from the key's render secret
+(shown on the dashboard's API Keys page once render links are on for the key) and its 12-character prefix:
+
+```ruby
+src = WebsiteScreenshotWorld::RenderLink.build(
+  render_secret: ENV.fetch("WSW_RENDER_SECRET"),
+  key_prefix: "0123456789ab",
+  url: "https://example.com",
+  format: "webp",
+  width: 1280,
+  height: 720,
+  thumb_width: 400,
+  ttl: 86_400 # serve the same capture for a day
+)
+# <img src="<%= src %>" alt="example.com">
+```
+
+A view of the link that is not cached makes one capture from your plan; cached views are free. Keep the render
+secret on your server: anyone who has it can make links that use your captures. Render links are on the Pro,
+Business and Business Plus plans.
+
 ## Webhooks
 
 Deliveries are signed with the `X-WSW-Signature` header. `Webhook.verify` checks the signature and the
